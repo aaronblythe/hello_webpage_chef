@@ -1,0 +1,25 @@
+---
+driver:
+  name: docker
+  volume: ['/var/run/docker.sock:/var/run/docker.sock']
+  privileged: true
+  forward: 80
+ 
+provisioner:
+  name: chef_solo
+ 
+verifier:
+  name: inspec
+  sudo: true
+
+platforms:
+#- name: ubuntu-15.10
+- name: ubuntu-16.04
+  driver:
+    run_command: /sbin/init
+ 
+suites:
+  - name: default
+    run_list:
+      - recipe[hello_webpage_chef]
+    attributes:

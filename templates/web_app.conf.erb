@@ -1,0 +1,18 @@
+Header always unset Server
+Header always unset X-Powered-By
+Header always unset X-Runtime
+
+<Directory "/docs/root/myapp/current/">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+
+    <IfModule mod_rewrite.c>
+        RewriteEngine on
+        RewriteCond %{HTTP_REFERER} !.*<%= node['my_app']['name'] %>.*$
+        RewriteCond %{REQUEST_URI} ^/support\-docs/?(.*\.html)?$
+        RewriteRule ^(.*)$ / [R,L]
+    </IfModule>
+
+    Order allow,deny
+    Allow from all
+</Directory>
