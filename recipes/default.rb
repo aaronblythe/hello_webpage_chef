@@ -3,6 +3,8 @@
 # Recipe:: default
 #
 
+
+include_recipe 'apt'
 include_recipe 'apache2::default'
 
 web_app "my_app" do
