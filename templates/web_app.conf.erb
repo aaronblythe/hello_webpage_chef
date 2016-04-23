@@ -2,9 +2,13 @@ Header always unset Server
 Header always unset X-Powered-By
 Header always unset X-Runtime
 
-<Directory "/docs/root/myapp/current/">
+DocumentRoot "/var/www/html/"
+
+<Directory "/var/www/html/">
     Options Indexes FollowSymLinks
     AllowOverride None
+
+    
 
     <IfModule mod_rewrite.c>
         RewriteEngine on
