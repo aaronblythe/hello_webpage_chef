@@ -38,5 +38,5 @@ describe file('/var/www/html/index.html') do
   it { should exist }
   it { should be_file }
   it { should be_owned_by 'root' }
-  its(:content) { should match(/Kansas City/) }
+  its(:content) { should match(/Champaign/) }
 end
