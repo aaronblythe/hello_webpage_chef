@@ -8,8 +8,6 @@ DocumentRoot "/var/www/html/"
     Options Indexes FollowSymLinks
     AllowOverride None
 
-    
-
     <IfModule mod_rewrite.c>
         RewriteEngine on
         RewriteCond %{HTTP_REFERER} !.*<%= node['my_app']['name'] %>.*$
