@@ -2,18 +2,25 @@
 # http://serverspec.org/resource_types.html
 
 # service is not working with SysVinit
-#describe service('apache2') do
+# describe service('apache2') do
 #  it { should be_installed }
 #  it { should be_running }
-#end
+# end
 
-describe command('apache2 -v') do
-  its(:exit_status) { should eq 0 }
-  its(:stdout) { should match(/Server version: Apache\/2.4/) }
+if os[:debian]
+  describe command('apache2 -v') do
+    its(:exit_status) { should eq 0 }
+    its(:stdout) { should match(%r{/Server version: Apache\/2.4/}) }
+  end
+elsif os[:redhat]
+  describe command('httpd -v') do
+    its(:exit_status) { should eq 0 }
+    its(:stdout) { should match(%r{/Server version: Apache\/2.4/}) }
+  end
 end
 
 describe apache_conf do
-  its('Listen') { should eq ["*:80"]}
+  its('Listen') { should eq ['*:80'] }
   its('AllowOverride') { should contain 'None' }
 end
 
@@ -22,16 +29,24 @@ describe host('example.com', port: 80, proto: 'tcp') do
 end
 
 describe ssh_config do
-  its('Host') { should eq '*' }
-  its('Tunnel') { should eq nil }
-  its('SendEnv') { should eq 'LANG LC_*' }
-  its('HashKnownHosts') { should eq 'yes' }
+  # its('Host') { should eq '*' }
+  # its('Tunnel') { should eq nil }
+  # its('SendEnv') { should eq 'LANG LC_*' }
+  # its('HashKnownHosts') { should eq 'yes' }
 end
 
-describe file('/etc/apache2/') do
-  it { should exist }
-  it { should be_directory }
-  it { should be_owned_by 'root' }
+if os[:debian]
+  describe file('/etc/apache2/') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'root' }
+  end
+elsif os[:redhat]
+  describe file('/etc/httpd/') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'root' }
+  end
 end
 
 describe file('/var/www/html/') do
@@ -40,14 +55,26 @@ describe file('/var/www/html/') do
   it { should be_owned_by 'root' }
 end
 
-describe file('/etc/apache2/sites-enabled/my_app.conf') do
-  it { should be_symlink }
-end
+if os[:debian]
+  describe file('/etc/apache2/sites-enabled/my_app.conf') do
+    it { should be_symlink }
+  end
 
-describe file('/etc/apache2/sites-available/my_app.conf') do
-  it { should exist }
-  it { should be_file }
-  it { should be_owned_by 'root' }
+  describe file('/etc/apache2/sites-available/my_app.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+  end
+elsif os[:redhat]
+  describe file('/etc/httpd/sites-enabled/my_app.conf') do
+    it { should be_symlink }
+  end
+
+  describe file('/etc/httpd/sites-available/my_app.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+  end
 end
 
 describe file('/var/www/html/index.html') do

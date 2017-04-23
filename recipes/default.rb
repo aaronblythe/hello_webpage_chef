@@ -10,7 +10,7 @@ when 'windows'
   # first the physical location must exist
   directory "#{node['iis']['docroot']}/testfu" do
     action :create
-    #rights :full_control, 'Everyone'
+    # rights :full_control, 'Everyone'
     recursive true
   end
 
@@ -19,13 +19,13 @@ when 'windows'
     protocol :http
     port 80
     path "#{node['iis']['docroot']}/testfu"
-    action [:add,:start]
+    action [:add, :start]
   end
 else
   include_recipe 'apt'
   include_recipe 'apache2::default'
 
-  web_app "my_app" do
+  web_app 'my_app' do
     template 'web_app.conf.erb'
     server_name node['my_app']['name']
   end
@@ -37,5 +37,3 @@ else
     mode '0755'
   end
 end
-
-

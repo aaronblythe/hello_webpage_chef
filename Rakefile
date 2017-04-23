@@ -12,9 +12,7 @@ namespace :style do
 
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
-    t.options = {
-      fail_tags: ['any']
-    }
+    t.options = { fail_tags: ['any'] }
   end
 end
 
@@ -25,7 +23,7 @@ task style: ['style:chef', 'style:ruby']
 namespace :integration do
   begin
     desc 'Run kitchen integration tests'
-    Kitchen::RakeTasks.new()
+    Kitchen::RakeTasks.new
   rescue LoadError, StandardError => e
     puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   end
@@ -36,4 +34,4 @@ desc 'Run ChefSpec examples'
 RSpec::Core::RakeTask.new(:spec)
 
 # Default
-task default: %w(style spec integration)
+task default: %w(style spec)

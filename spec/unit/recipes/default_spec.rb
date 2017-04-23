@@ -14,6 +14,7 @@ describe 'hello_webpage_chef::default' do
     end
 
     it 'converges successfully' do
+      stub_command('/usr/sbin/apache2 -t').and_return(true)
       expect { chef_run }.to_not raise_error
     end
   end
