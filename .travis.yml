@@ -36,7 +36,7 @@ matrix:
       - /opt/chefdk/embedded/bin/cookstyle --version
       - /opt/chefdk/embedded/bin/foodcritic --version
     - script:
-      - /opt/chefdk/bin/chef rake
+      - /opt/chefdk/bin/chef exec rake
       env: UNIT_AND_LINT=1
 
 after_failure: cat docker_daemon.log
