@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+  network:
+    - ["private_network", {ip: "192.168.34.34"}]
+
+provisioner:
+  name: chef_zero
+
+verifier:
+   name: inspec
+
+platforms:
+  - name: mwrock/Windows2012R2
+    os_type: windows
+    transport:
+      name: winrm
+      elevated: true
+
+suites:
+  - name: default
+    run_list:
+      - recipe[hello_webpage_chef::default]
+    attributes:

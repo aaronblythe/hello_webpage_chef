@@ -1,9 +1,10 @@
 ---
 driver:
   name: docker
-  volume: ['/var/run/docker.sock:/var/run/docker.sock']
-  privileged: true
+  #volume: ['/var/run/docker.sock:/var/run/docker.sock']
+  #privileged: true
   forward: 80
+  use_sudo: false
  
 provisioner:
   name: chef_solo
@@ -13,7 +14,7 @@ verifier:
   sudo: true
 
 platforms:
-- name: ubuntu-16.04
+  - name: ubuntu-16.04
  
 suites:
   - name: default

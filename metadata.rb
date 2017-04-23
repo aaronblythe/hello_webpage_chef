@@ -7,4 +7,5 @@ long_description 'Installs/Configures hello_webpage_chef'
 version '0.11.0'
 
 depends 'apache2'
+depends 'iis'
 depends 'apt'

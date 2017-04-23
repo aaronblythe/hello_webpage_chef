@@ -1,0 +1,34 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  security_group_ids: <%= ENV['AWS_SECURITY_GROUP_ID'] %>
+  region: eu-west-1
+  #availability_zone: a
+  #require_chef_omnibus: true
+  subnet_id: <%= ENV['AWS_SUBNET_ID'] %>
+  #iam_profile_name: chef-client
+  #instance_type: t2.micro
+  #associate_public_ip: true
+  #interface: public
+
+transport:
+  ssh_key: <%= ENV['AWS_SSH_KEY_FULL_PATH'] %>
+  #connection_timeout: 10
+  #connection_retries: 5
+  username: ubuntu
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      image_id: ami-405f7226
+
+suites:
+  - name: default
+    run_list:
+      - recipe[hello_webpage_chef]
+    attributes:
+
