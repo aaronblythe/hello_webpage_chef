@@ -1,6 +1,8 @@
 # hello_webpage_chef
 
-TODO: Enter the cookbook description here.
+[![Build Status](https://travis-ci.org/aaronblythe/hello_webpage_chef.svg?branch=master)](https://travis-ci.org/aaronblythe/hello_webpage_chef)
+
+Simple chef cookbook to exhibit how to do simple things. Exhibits how to use test kitchen in multiple ways.
 
 # Testing
 
