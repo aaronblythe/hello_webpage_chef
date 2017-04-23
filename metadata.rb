@@ -9,6 +9,7 @@ source_url 'https://github.com/aaronblythe/hello_webpage_chef'
 version '0.11.0'
 supports 'ubuntu'
 chef_version '>= 12.5' if respond_to?(:chef_version)
+license 'Apache-2.0'
 
 depends 'apache2'
 depends 'iis'
