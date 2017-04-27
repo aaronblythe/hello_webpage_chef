@@ -7,9 +7,9 @@ driver:
 provisioner:
   name: shell
  
-verifier:
-  name: inspec
-  sudo: true
+#verifier:
+#  name: inspec
+#  sudo: true
 
 platforms:
   - name: ubuntu-16.04
@@ -20,6 +20,7 @@ platforms:
 suites:
   - name: default
     verifier:
+      name: inspec
       inspec_tests:
         - supermarket://dev-sec/cis-docker-benchmark
     attributes:

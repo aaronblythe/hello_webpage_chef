@@ -36,7 +36,7 @@ when 'windows'
     recursive true
   end
 
-  # now create and start the site (note this will use the default application pool which must exist)
+# now create and start the site (note this will use the default application pool which must exist)
 #  iis_site 'Testfu Site' do
 #    protocol :http
 #    port 80
