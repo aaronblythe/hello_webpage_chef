@@ -35,7 +35,7 @@ platforms:
         - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
     driver_config: 
       network:
-        - ["private_network", {ip: “192.168.34.35"}]
+        - ["private_network", {ip: “192.168.34.38"}]
 
 suites:
   - name: default

@@ -20,12 +20,12 @@ if os[:family] == 'debian'
   end
   describe command('apache2 -v') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should match(%r{Server version: Apache\/2.4}) }
+    its(:stdout) { should include('Server version: Apache/2.4') }
   end
 elsif os[:family] == 'redhat'
   describe command('httpd -v') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should match(%r{/Server version: Apache\/2.4/}) }
+    its(:stdout) { should include('Server version: Apache/2.4') }
   end
 end
 
