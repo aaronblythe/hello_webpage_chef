@@ -27,4 +27,7 @@ suites:
   - name: default
     run_list:
       - recipe[hello_webpage_chef]
+    verifier:
+      inspec_tests:
+        - supermarket://dev-sec/linux-baseline
     attributes:

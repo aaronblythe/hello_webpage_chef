@@ -1,8 +1,8 @@
 ---
 driver:
   name: vagrant
-#  network:
-#    - ["private_network", {ip: "192.168.34.34"}]
+  #network:
+  #  - ["private_network", {ip: "192.168.34.34"}]
 
 provisioner:
   name: chef_zero
@@ -16,9 +16,11 @@ platforms:
       network:
         - ["private_network", {ip: "192.168.34.34"}]
   - name: centos-7.3
-    driver_config: 
-      network:
-        - ["private_network", {ip: “192.168.34.35"}]
+    # there is some issue with this networking and I keep getting
+    # /opt/vagrant/embedded/lib/ruby/2.2.0/ipaddr.rb:559:in `in6_addr': invalid address (IPAddr::InvalidAddressError)
+    #driver_config: 
+    #  network:
+    #    - ["private_network", {ip: “192.168.34.35"}]
 
 suites:
   - name: default

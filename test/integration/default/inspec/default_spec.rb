@@ -2,17 +2,27 @@
 # http://serverspec.org/resource_types.html
 
 # service is not working with SysVinit
-# describe service('apache2') do
-#  it { should be_installed }
-#  it { should be_running }
-# end
+if os[:family] == 'debian'
+  describe upstart_service('apache2') do
+    it { should be_installed }
+    it { should be_running }
+  end
+elsif os[:family] == 'redhat'
+  describe service('httpd') do
+    it { should be_installed }
+    it { should be_running }
+  end
+end
 
-if os[:debian]
+if os[:family] == 'debian'
+  describe package('apache2') do
+    it { should be_installed }
+  end
   describe command('apache2 -v') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should match(%r{/Server version: Apache\/2.4/}) }
+    its(:stdout) { should match(%r{Server version: Apache\/2.4}) }
   end
-elsif os[:redhat]
+elsif os[:family] == 'redhat'
   describe command('httpd -v') do
     its(:exit_status) { should eq 0 }
     its(:stdout) { should match(%r{/Server version: Apache\/2.4/}) }
@@ -35,13 +45,13 @@ describe ssh_config do
   # its('HashKnownHosts') { should eq 'yes' }
 end
 
-if os[:debian]
+if os[:family] == 'debian'
   describe file('/etc/apache2/') do
-    it { should exist }
+    it { expect(file('/etc/apache2/')).to exist }
     it { should be_directory }
     it { should be_owned_by 'root' }
   end
-elsif os[:redhat]
+elsif os[:family] == 'redhat'
   describe file('/etc/httpd/') do
     it { should exist }
     it { should be_directory }
@@ -55,7 +65,7 @@ describe file('/var/www/html/') do
   it { should be_owned_by 'root' }
 end
 
-if os[:debian]
+if os[:family] == 'debian'
   describe file('/etc/apache2/sites-enabled/my_app.conf') do
     it { should be_symlink }
   end
@@ -65,7 +75,7 @@ if os[:debian]
     it { should be_file }
     it { should be_owned_by 'root' }
   end
-elsif os[:redhat]
+elsif os[:family] == 'redhat'
   describe file('/etc/httpd/sites-enabled/my_app.conf') do
     it { should be_symlink }
   end

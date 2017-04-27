@@ -24,7 +24,7 @@ platforms:
         - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
     driver_config: 
       network:
-        - ["private_network", {ip: "192.168.34.34"}]
+        - ["private_network", {ip: "192.168.34.37"}]
  
   - name: centos-7
     driver:
