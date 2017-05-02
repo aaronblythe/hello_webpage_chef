@@ -1,0 +1,76 @@
+# pre reqs
+export KITCHEN_YAML=.kitchen.yml
+chef exec kitchen list
+chef exec kitchen destroy
+chef exec kitchen converge
+export KITCHEN_YAML=.kitchen.windows.yml
+chef exec kitchen list
+chef exec kitchen destroy
+chef exec kitchen converge
+export KITCHEN_YAML=.kitchen.docker.yml
+chef exec kitchen list
+chef exec kitchen destroy
+chef exec kitchen converge
+export KITCHEN_YAML=.kitchen.cloud.yml
+chef exec kitchen list
+chef exec kitchen destroy
+chef exec kitchen converge
+
+
+# PRESENTATION
+# Vagrant
+export KITCHEN_YAML=.kitchen.yml
+chef exec kitchen list
+chef exec kitchen converge
+chef exec kitchen list
+chef exec kitchen login default-ubuntu-1604
+less /var/www/html/index.html
+exit
+open http://192.168.34.34
+# change template/index.html.erb to St. Louis
+chef exec kitchen converge
+open http://192.168.34.34
+chef exec kitchen destroy
+
+# Windows
+export KITCHEN_YAML=.kitchen.windows.yml
+chef exec kitchen list
+chef exec kitchen converge
+open http://192.168.34.36
+chef exec kitchen login
+chef exec kitchen destroy
+
+# Docker
+export KITCHEN_YAML=.kitchen.docker.yml
+chef exec kitchen list
+chef exec kitchen converge
+docker ps -a
+#port is likely different           
+open http://0.0.0.0:32770
+# don't destroy
+
+# EC2
+export KITCHEN_YAML=.kitchen.cloud.yml
+chef exec kitchen converge
+# Tell story
+chef exec kitchen login
+open http://ec2-34-248-242-144.eu-west-1.compute.amazonaws.com
+chef exec kitchen destroy
+
+# Verify Docker
+export KITCHEN_YAML=.kitchen.docker.yml
+chef exec kitchen verify
+chef exec kitchen destroy
+
+# Linux Audit
+export KITCHEN_YAML=.kitchen.audit.yml
+chef exec kitchen verify
+chef exec kitchen destroy
+
+# Docker Audit
+export KITCHEN_YAML=.kitchen.docker.audit.yml
+chef exec kitchen verify
+chef exec kitchen destroy
+
+
+
